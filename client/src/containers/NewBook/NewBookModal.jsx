@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AlertContext from "../../context/AlertContext";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -11,6 +11,14 @@ const NewBookModal = ({ showModal, toggleModal, setAuthors }) => {
   const [lastName, setLastName] = useState("");
 
   const { setAlert } = useContext(AlertContext);
+
+  const firstNameInput = useRef();
+
+  useEffect(() => {
+    if (showModal) {
+      firstNameInput.current.focus();
+    }
+  }, [showModal]);
 
   const createAuthor = (e) => {
     e.preventDefault();
@@ -58,6 +66,7 @@ const NewBookModal = ({ showModal, toggleModal, setAuthors }) => {
             handleChange={(e) => {
               setFirstName(e.target.value);
             }}
+            ref={firstNameInput}
           />
           <Input
             label="Last Name"

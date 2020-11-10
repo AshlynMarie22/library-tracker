@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const AuthForm = ({ buttonText, handleSubmit, slug }) => {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
+  const firstInputRef = useRef();
+
+  useEffect(() => {
+    firstInputRef.current.focus();
+  }, []);
+
   return (
     <form
       onSubmit={(e) => {
@@ -18,6 +24,7 @@ const AuthForm = ({ buttonText, handleSubmit, slug }) => {
           name="emailAddress"
           value={emailAddress}
           onChange={(e) => setEmailAddress(e.target.value)}
+          ref={firstInputRef}
         />
       </div>
       <div className="form-group">
